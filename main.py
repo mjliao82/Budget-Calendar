@@ -26,11 +26,10 @@ def pulling(date):
             if date==line[0]:
                 earned += int(line[1])
                 spent += int(line[2])
-    print("On" + ' ' + date + ":")
-    print("     earned:" + " " + str(earned))
-    print("     spent:" + " " + str(spent))
-    print("hello1")
-    return None
+    first=("On" + ' ' + date + ":")
+    second =("     earned:" + " " + str(earned))
+    third = ("     spent:" + " " + str(spent))
+    return first + second + third
 
 #insert("01/12/2023", "10", "20")
-pulling("01/12/2023")
+print(pulling("01/12/2023"))
