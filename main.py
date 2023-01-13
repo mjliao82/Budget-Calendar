@@ -29,6 +29,7 @@ def pulling(date):
     print("On" + ' ' + date + ":")
     print("     earned:" + " " + str(earned))
     print("     spent:" + " " + str(spent))
+    print("hello")
     return None
 
 #insert("01/12/2023", "10", "20")
