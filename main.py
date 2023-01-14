@@ -4,7 +4,7 @@ import csv
 header = ["Date", "Money Earned", "Money Spent"]
 def insert(date, earned, spent): #input
     with open("data.csv") as r:
-        with open("data.csv", "a") as f:
+        with open("data.csv", "a", newline = "") as f:
             reader = csv.reader(r)
             writer = csv.writer(f)
             if header not in reader:
