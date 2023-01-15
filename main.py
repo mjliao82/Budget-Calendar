@@ -31,5 +31,5 @@ def pulling(date):
     third = ("     spent:" + " " + str(spent))
     return first + second + third
 
-insert("01/12/2023", "10", "20")
+#insert("01/12/2023", "10", "20")
 print(pulling("01/12/2023"))

@@ -19,8 +19,13 @@ date=Entry(root, width=30)
 income=Entry(root, width=30)
 spent=Entry(root, width=30)
 
+def transaction():
+    one=date.get()
+    two=income.get()
+    three=spent.get()
+    main.insert(one, two, three)
 
-
+enter=Button(root, text="Enter", command=transaction())
 
 
 Initial.pack()
@@ -30,6 +35,7 @@ income.pack()
 income.insert(1, "ex: '10'")
 spent.pack()
 spent.insert(2, "ex: '20'")
+enter.pack()
 space.pack()
 month.pack()
 twelve.pack()
