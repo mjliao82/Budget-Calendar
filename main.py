@@ -1,4 +1,7 @@
 import csv
+from time import strptime
+import calendar
+import pandas as pd
 
 #wrting csv, putting in date, money earned and money spent
 header = ["Date", "Money Earned", "Money Spent"]
@@ -10,6 +13,10 @@ def insert(date, earned, spent): #input
             if header not in reader:
                 writer.writerow(header)
             writer.writerow([date, earned, spent])
+        df = pd.read_csv('data.csv', index_col=False)
+        df['Date'] = pd.to_datetime(df['Date']).dt.strftime('%m/%d/%Y')
+        df.sort_values('Date', inplace=True)
+        df.to_csv('data.csv', index=False)
     f.close()
     return None
 
@@ -31,5 +38,40 @@ def pulling(date):
     third = ("     spent:" + " " + str(spent))
     return first + second + third
 
-#insert("01/12/2023", "10", "20")
-print(pulling("01/12/2023"))
+
+monthToInt = {
+    "jan" : 1,
+    "feb" : 2,
+}
+#total month's earning and spending
+def monthTotal(month):
+    totalEarned = 0
+    totalSpent = 0
+    monthnum = monthToInt[month]
+    with open("data.csv") as r:
+        reader = csv.reader(r)
+        next(reader)
+        for line in reader:
+            mdy = line[0].split("/")
+            mth = mdy[0]
+            yr = mdy[2]
+            while mth == monthnum:
+                totalEarned += line[1]
+                totalSpent += line[2]
+    statement = ("For the month of " + month + ", you earned:" + str(totalEarned) + " and spent:" + str(totalEarned))
+    return statement
+
+
+#categorize spending like groceries rent entertainment etc
+
+print(monthTotal("jan"))
+# insert("1/20/2023", "10", "20")
+# insert("1/5/2023", "10", "20")
+# insert("1/2/2023", "10", "20")
+# insert("1/18/2023", "10", "20")
+# insert("1/1/2023", "10", "20")
+# insert("12/1/2023", "10", "20")
+# insert("5/1/2023", "10", "20")
+# insert("10/1/2023", "10", "20")
+
+#print(pulling("01/12/2023"))
