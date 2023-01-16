@@ -16,11 +16,11 @@ space=Label(root, text="                     ")
 month=Label(root, text="January 2023")
 twelve=Button(root, text="12th", command=jan1203)
 instruction1=Label(root, text="Enter date")
-date=Entry(root, width=30)
+date=Entry(root, width=15)
 instruction2=Label(root, text="Enter earnings")
-income=Entry(root, width=30)
+income=Entry(root, width=15)
 instruction3=Label(root, text="Enter spendings")
-spent=Entry(root, width=30)
+spent=Entry(root, width=15)
 
 def transaction():
     one="'"+date.get()+"'"
@@ -33,15 +33,15 @@ enter=Button(root, text="Enter", command=transaction)
 #row0
 Initial.grid(row=0, column=0, columnspan=4, padx=20, pady=10)
 #row1
-date.grid(row=1, column=2)
+date.grid(row=1, column=1)
 date.insert(0, "mm/dd/yyyy")
-instruction1.grid(row=1, column=1)
+instruction1.grid(row=1, column=0)
 #row2
-income.grid(row=2, column=2)
-instruction2.grid(row=2, column=1)
+income.grid(row=2, column=1)
+instruction2.grid(row=2, column=0)
 #row3
-spent.grid(row=3, column=2)
-instruction3.grid(row=3, column=1)
+spent.grid(row=3, column=1)
+instruction3.grid(row=3, column=0)
 #row4
 enter.grid(row=4, column=0, columnspan=4, padx=20, pady=20)
 #row5
