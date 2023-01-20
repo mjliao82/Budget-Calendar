@@ -3,46 +3,58 @@ from tkcalendar import Calendar
 
 import main
 root = Tk()
-root.geometry("500x500")
+scroll=Scrollbar(root)
+scroll.pack(side=RIGHT, fill=Y)
+root.geometry("500x700")
 root.title("Budget Calendar")
+root['bg'] = 'light cyan'
 
-cal = Calendar(root, font="Arial 16", selectmode='day', year=2023, month=1, day=19, foreground="BLACK", selectforeground="red")
+cal = Calendar(root, font="Arial 16", selectmode='day', year=2023, month=1, day=19, foreground="black", selectforeground="red")
 
 #on GUI
-Initial=Label(root, text="Enter your transaction")
-space=Label(root, text="                     ")
+Initial=Label(root, text="Submit transactions", bg='light cyan')
+space=Label(root, text="                     ", bg='light cyan', fg='light cyan')
 
-instruction1=Label(root, text="Enter date")
+instruction1=Label(root, text="Enter date", bg='light cyan')
 date=Entry(root, width=15)
-instruction2=Label(root, text="Enter earnings")
+instruction2=Label(root, text="Enter earnings", bg='light cyan')
 income=Entry(root, width=15)
-instruction3=Label(root, text="Enter spendings")
+instruction3=Label(root, text="Enter spendings", bg='light cyan')
 spent=Entry(root, width=15)
 
 def transaction():
-    one="'"+date.get()+"'"
+    one=date.get()
     two=income.get()
     three=spent.get()
     main.insert(one, two, three)
 
-enter=Button(root, text="Enter", command=transaction)
+submit=Button(root, text="Submit to file", command=transaction)
+
+def anydate():
+    picked = cal.get_date()
+    output = main.pulling(picked)
+    result = Label(root, text=str(output), bg="light cyan")
+    result.pack()
+
+enter=Button(root, text= "Enter", command=anydate)
 
 #row0
-Initial.grid(row=0, column=0, columnspan=4, padx=20, pady=10)
+Initial.pack(padx=20, pady=20)
 #row1
-date.grid(row=1, column=1)
-date.insert(0, "mm/dd/yyyy")
-instruction1.grid(row=1, column=0)
+instruction1.pack()
+date.pack()
+date.insert(0, "m/d/yy")
+space.pack()
 #row2
-income.grid(row=2, column=1)
-instruction2.grid(row=2, column=0)
+instruction2.pack()
+income.pack()
 #row3
-spent.grid(row=3, column=1)
-instruction3.grid(row=3, column=0)
+instruction3.pack()
+spent.pack()
 #row4
-enter.grid(row=4, column=0, columnspan=4, padx=20, pady=20)
+submit.pack(padx=20, pady=20)
 #row5
-cal.grid(row=5, column=0, columnspan=6)
+cal.pack()
+enter.pack(padx=20, pady=20)
 #row6
-space.grid(row=8, column=0, padx=40, pady=40)
 root.mainloop()

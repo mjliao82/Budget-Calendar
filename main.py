@@ -13,10 +13,6 @@ def insert(date, earned, spent): #input
             if header not in reader:
                 writer.writerow(header)
             writer.writerow([date, earned, spent])
-        df = pd.read_csv('data.csv', index_col=False)
-        df['Date'] = pd.to_datetime(df['Date']).dt.strftime('%m/%d/%Y')
-        df.sort_values('Date', inplace=True)
-        df.to_csv('data.csv', index=False)
     f.close()
     return None
 
@@ -64,9 +60,9 @@ def monthTotal(month):
 
 #categorize spending like groceries rent entertainment etc
 
-print(monthTotal("jan"))
-# insert("1/20/2023", "10", "20")
-# insert("1/5/2023", "10", "20")
+#3print(monthTotal("jan"))
+#insert("1/20/2023", "10", "20")
+#insert("1/5/2023", "10", "20")
 # insert("1/2/2023", "10", "20")
 # insert("1/18/2023", "10", "20")
 # insert("1/1/2023", "10", "20")
