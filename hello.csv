@@ -13,6 +13,12 @@ To open terminal in vscode if you're using it, press: control  `
 open terminal and type: pip install virtualenv 
 once it's installed, type: virtualenv budenv            #budenv is the name of the virutal environment for the project
 
+I don't think you need to reinitialize the virtualenv but if needed, 
+virtualenv -p python3.9 budenv  
+this ensures 3.9.13 if you had already downloaded in your computer
+
+I think you only have to activate it
+
 Now that's set up, all u have to do when you reopen the project anywhere is to activate it,
 To activate it, type: source/budenv/bin/activate
 

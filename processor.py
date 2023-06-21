@@ -56,18 +56,3 @@ def monthTotal(month):
                 totalSpent += line[2]
     statement = ("For the month of " + month + ", you earned:" + str(totalEarned) + " and spent:" + str(totalEarned))
     return statement
-
-
-#categorize spending like groceries rent entertainment etc
-
-#3print(monthTotal("jan"))
-#insert("1/20/2023", "10", "20")
-#insert("1/5/2023", "10", "20")
-# insert("1/2/2023", "10", "20")
-# insert("1/18/2023", "10", "20")
-# insert("1/1/2023", "10", "20")
-# insert("12/1/2023", "10", "20")
-# insert("5/1/2023", "10", "20")
-# insert("10/1/2023", "10", "20")
-
-#print(pulling("01/12/2023"))

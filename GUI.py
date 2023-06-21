@@ -1,7 +1,7 @@
 from tkinter import *
 from tkcalendar import Calendar
 
-import main
+import processor
 root = Tk()
 scroll=Scrollbar(root)
 scroll.pack(side=RIGHT, fill=Y)
@@ -26,13 +26,13 @@ def transaction():
     one=date.get()
     two=income.get()
     three=spent.get()
-    main.insert(one, two, three)
+    processor.insert(one, two, three)
 
 submit=Button(root, text="Submit to file", command=transaction)
 
 def anydate():
     picked = cal.get_date()
-    output = main.pulling(picked)
+    output = processor.pulling(picked)
     result = Label(root, text=str(output), bg="light cyan")
     result.pack()
 
