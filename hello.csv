@@ -20,7 +20,7 @@ this ensures 3.9.13 if you had already downloaded in your computer
 I think you only have to activate it
 
 Now that's set up, all u have to do when you reopen the project anywhere is to activate it,
-To activate it, type: source/budenv/bin/activate
+To activate it, type: source budenv/bin/activate
 
 We need to activate it because that's where all of the built in packages will be installed in
 Note that whatever we install, say pandas or flask/react whatever, it will only be in the virtual environment, not in your local machine.

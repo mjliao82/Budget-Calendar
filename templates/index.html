@@ -1,11 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Budget Calendar</title>
-</head>
-<body>
-    
-</body>
+  </head>
+  <style>
+    .middle {
+      display: flex;
+      justify-content: center;
+    }
+    .fc-event-time {
+      display: none;
+    }
+  </style>
+  <div class="middle">
+    <h1>Welcome to Budget Calendar</h1>
+  </div>
+  <body>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var calendarEl = document.getElementById("calendar");
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: "dayGridMonth",
+          dateClick: function (info) {
+            // Prompt the user for event information
+            var title = prompt("Enter event title");
+
+            // If a title is given, create a new event
+            if (title) {
+              var newEvent = {
+                title: title,
+                start: info.dateStr,
+              };
+              calendar.addEvent(newEvent);
+
+              // Send the new event to the server
+              $.ajax({
+                url: "/events",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(newEvent),
+                success: function (data) {
+                  console.log("Event created:", data);
+                },
+                error: function (error) {
+                  console.log("Error:", error);
+                },
+              });
+            }
+          },
+          eventClick: function (info) {
+            // Display the event title when an event is clicked
+            alert("Event: " + info.event.title);
+          },
+          events: function (fetchInfo, successCallback, failureCallback) {
+            // Fetch events from the server
+            $.get("/events", function (events) {
+              successCallback(events);
+            });
+          },
+        });
+
+        calendar.render();
+      });
+    </script>
+    <div id="calendar"></div>
+  </body>
 </html>
