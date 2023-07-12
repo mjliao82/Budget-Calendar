@@ -89,7 +89,8 @@
             $("#myModal").modal("show"); // show the modal
           },
           eventClick: function (info) {
-            alert(info.event.title);
+            var formattedTitle = info.event.title.replace(/, /g, "\n");
+            alert(formattedTitle);
           },
           events: function (fetchInfo, successCallback, failureCallback) {
             $.get("/events", function (events) {
@@ -110,7 +111,7 @@
 
           if (income || outcome || category || description) {
             var newEvent = {
-              title: `Income: ${income}, Spendings: ${outcome}, Category: ${category}, Description: ${description}`,
+              title: `Income: ${income}, \nSpendings: ${outcome}, \nCategory: ${category}, \nDescription: ${description}`,
               start: selectedDate,
             };
 
