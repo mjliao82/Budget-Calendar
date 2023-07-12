@@ -3,14 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <title>Budget Calendar</title>
   </head>
   <style>
     .middle {
       display: flex;
       justify-content: center;
+    }
+    #calendar {
+      max-width: 950px; /* adjust as needed */
+      height: 650px; /* adjust as needed */
+      margin: 0 auto;
     }
     .fc-event-time {
       display: none;
@@ -20,45 +30,68 @@
     <h1>Welcome to Budget Calendar</h1>
   </div>
   <body>
+    <div class="modal" tabindex="-1" role="dialog" id="myModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Budget Entry</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="budgetForm">
+              <div class="form-group">
+                <label for="income">Income</label>
+                <input type="number" class="form-control" id="income" />
+              </div>
+              <div class="form-group">
+                <label for="outcome">Spendings</label>
+                <input type="number" class="form-control" id="outcome" />
+              </div>
+              <div class="form-group">
+                <label for="category">Category</label>
+                <select class="form-control" id="category">
+                  <option value="">Select category</option>
+                  <option value="Groceries">Groceries</option>
+                  <option value="Rent">Rent</option>
+                  <option value="Utilities">Utilities</option>
+                  <!-- Add as many options as needed -->
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" class="form-control" id="description" />
+              </div>
+              <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        var calendarEl = document.getElementById("calendar");
+      var selectedDate;
+      var calendarEl;
+      var calendar;
 
-        var calendar = new FullCalendar.Calendar(calendarEl, {
+      document.addEventListener("DOMContentLoaded", function () {
+        calendarEl = document.getElementById("calendar");
+
+        calendar = new FullCalendar.Calendar(calendarEl, {
           initialView: "dayGridMonth",
           dateClick: function (info) {
-            // Prompt the user for event information
-            var title = prompt("Enter event title");
-
-            // If a title is given, create a new event
-            if (title) {
-              var newEvent = {
-                title: title,
-                start: info.dateStr,
-              };
-              calendar.addEvent(newEvent);
-
-              // Send the new event to the server
-              $.ajax({
-                url: "/events",
-                method: "POST",
-                contentType: "application/json",
-                data: JSON.stringify(newEvent),
-                success: function (data) {
-                  console.log("Event created:", data);
-                },
-                error: function (error) {
-                  console.log("Error:", error);
-                },
-              });
-            }
+            selectedDate = info.dateStr; // save the date the user clicked on
+            $("#myModal").modal("show"); // show the modal
           },
           eventClick: function (info) {
-            // Display the event title when an event is clicked
-            alert("Event: " + info.event.title);
+            alert(info.event.title);
           },
           events: function (fetchInfo, successCallback, failureCallback) {
-            // Fetch events from the server
             $.get("/events", function (events) {
               successCallback(events);
             });
@@ -66,6 +99,43 @@
         });
 
         calendar.render();
+
+        $("#budgetForm").on("submit", function (e) {
+          e.preventDefault();
+
+          var income = $("#income").val();
+          var outcome = $("#outcome").val();
+          var category = $("#category").val();
+          var description = $("#description").val();
+
+          if (income || outcome || category || description) {
+            var newEvent = {
+              title: `Income: ${income}, Spendings: ${outcome}, Category: ${category}, Description: ${description}`,
+              start: selectedDate,
+            };
+
+            calendar.addEvent(newEvent);
+
+            $.ajax({
+              url: "/events",
+              method: "POST",
+              contentType: "application/json",
+              data: JSON.stringify(newEvent),
+              success: function (data) {
+                console.log("Event created:", data);
+              },
+              error: function (error) {
+                console.log("Error:", error);
+              },
+            });
+
+            $("#myModal").modal("hide");
+            $("#income").val("");
+            $("#outcome").val("");
+            $("#category").val("");
+            $("#description").val("");
+          }
+        });
       });
     </script>
     <div id="calendar"></div>
