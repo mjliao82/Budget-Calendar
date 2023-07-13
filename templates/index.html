@@ -16,18 +16,76 @@
     .middle {
       display: flex;
       justify-content: center;
+      position: relative;
+      top: 5px;
     }
     #calendar {
       max-width: 950px; /* adjust as needed */
       height: 650px; /* adjust as needed */
       margin: 0 auto;
+      top: 20px;
     }
     .fc-event-time {
       display: none;
     }
+    .dropbtn {
+      background-color: #0d3149;
+      color: white;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* Dropdown button on hover & focus */
+    .dropbtn:hover,
+    .dropbtn:focus {
+      background-color: #011522;
+    }
+
+    /* The dropdown <div> - needed to position the dropdown content */
+    .dropdown {
+      display: flex;
+      position: relative;
+      right: 315px;
+    }
+    /* Dropdown Content (Hidden by Default) */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f1f1f1;
+      min-width: 10px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      top: 47px;
+    }
+
+    /* Links inside the dropdown */
+    .dropdown-content a {
+      color: black;
+      padding: 8px 6px;
+      text-decoration: none;
+      display: block;
+    }
+
+    /* Change color of dropdown links on hover */
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+
+    /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+    .show {
+      display: block;
+    }
   </style>
   <div class="middle">
-    <h1>Welcome to Budget Calendar</h1>
+    <div class="dropdown">
+      <button onclick="drop()" class="dropbtn">features</button>
+      <div id="myDropdown1" class="dropdown-content">
+        <a onclick="first()">Monthly Analysis</a>
+      </div>
+    </div>
+    <h2>Budget Calendar</h2>
   </div>
   <body>
     <div class="modal" tabindex="-1" role="dialog" id="myModal">
@@ -138,6 +196,27 @@
           }
         });
       });
+    </script>
+    <script>
+      function drop() {
+        document.getElementById("myDropdown1").classList.toggle("show");
+      }
+      function first() {
+        window.location.href = "/first";
+      }
+      // Close the dropdown menu if the user clicks outside of it
+      window.onclick = function (event) {
+        if (!event.target.matches(".dropbtn")) {
+          var dropdowns = document.getElementsByClassName("dropdown-content");
+          var i;
+          for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains("show")) {
+              openDropdown.classList.remove("show");
+            }
+          }
+        }
+      };
     </script>
     <div id="calendar"></div>
   </body>

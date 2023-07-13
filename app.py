@@ -13,6 +13,10 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
+@app.route("/first")
+def first():
+    return render_template("months.html")
+
 @app.route('/events', methods=['GET', 'POST'])
 def handle_events():
     if request.method == 'POST':
