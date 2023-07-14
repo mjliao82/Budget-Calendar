@@ -11,16 +11,15 @@ It is also not that ode at all
 To open terminal in vscode if you're using it, press: control  ` 
 
 open terminal and type: pip install virtualenv 
-once it's installed, type: virtualenv budenv            #budenv is the name of the virutal environment for the project
 
-I don't think you need to reinitialize the virtualenv but if needed, 
-virtualenv -p python3.9 budenv  
-this ensures 3.9.13 if you had already downloaded in your computer
 
-I think you only have to activate it
+I included a requirement.txt file, go into it and click install
 
-Now that's set up, all u have to do when you reopen the project anywhere is to activate it,
-To activate it, type: source budenv/bin/activate
+it will create a vitural env I created for this project.
+
+on the left in the file expolorer will have a .venv
+
+right click and open integrated terminal and it is activated in the desigated terminal
 
 We need to activate it because that's where all of the built in packages will be installed in
 Note that whatever we install, say pandas or flask/react whatever, it will only be in the virtual environment, not in your local machine.
