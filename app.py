@@ -43,15 +43,18 @@ def submit():
     data = request.get_json()
     year = data.get('year')
     month = data.get('month')
-    pull = list(year, month)
-    
-    '''' proves that it works
+    pull = [year, month]
+
+    '''#proves that it works
     with open('data.csv', mode='a') as file:
         writer = csv.writer(file)
         writer.writerow([year, month])
     '''
     return jsonify({"message": "Data saved successfully"}), 200
 
+@app.route('/months')
+def month_analytics():
+    return render_template("monthEmbed.html")
 
 if __name__=="__main__":
     app.run(debug=True)
