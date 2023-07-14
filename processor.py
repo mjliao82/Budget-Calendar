@@ -10,3 +10,4 @@ def row_delete(filename, row_num):
         writer = csv.writer(file)
         writer.writerow(lines)
 
+print("fart")

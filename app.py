@@ -2,12 +2,13 @@ from flask import Flask, render_template, request, jsonify
 import csv
 import os
 from datetime import datetime
-
+from flask_cors import CORS, cross_origin
 
 #this is the backend framework. I (Mike) will work on this
 #purpose of the file is to connect processed data with frontend
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/")
 def index():
@@ -36,6 +37,18 @@ def handle_events():
         else:
             events = []
         return jsonify(events)
+
+@app.route('/submit', methods=['POST'])
+def submit_data():
+    year = request.form['year']
+    month = request.form['month']
+    print('Year:', year, 'Month:', month)
+    with open('data.csv', 'a', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow([year, month])
+    return jsonify({'message': 'Success'}), 200
+
+
 
 if __name__=="__main__":
     app.run(debug=True)

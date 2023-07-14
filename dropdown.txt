@@ -23,9 +23,7 @@
     background-color: #011522;
   }
 
-  .dropbtn2D:hover {
-    display: block;
-  }
+  .dropbtn2D:hover,
   .dropbtn2D:focus {
     background-color: #ddd;
   }
@@ -65,8 +63,8 @@
   }
 
   /* Change color of dropdown links on hover */
-  .dropdown2D:hover .dropdown2D-content {
-    display: block;
+  .dropdown2D-content a:hover {
+    background-color: #ddd;
   }
   /* Links inside the dropdown */
   .dropdown-content a {
@@ -91,18 +89,7 @@
   <div id="myDropdown1" class="dropdown-content">
     <button onclick="Drop2D()" class="dropbtn2D">2023</button>
     <div id="myDropdown2" class="dropdown2D-content">
-      <a>Jan</a>
-      <a>Feb</a>
-      <a>Mar</a>
-      <a>Apr</a>
-      <a>May</a>
-      <a>Jun</a>
-      <a>Jul</a>
-      <a>Aug</a>
-      <a>Sep</a>
-      <a>Oct</a>
-      <a>Nov</a>
-      <a>Dec</a>
+      <a>July</a>
     </div>
   </div>
 </div>
@@ -135,33 +122,6 @@ toggle between hiding and showing the dropdown content */
       }
     }
   };
-</script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  $(document).ready(function () {
-    // Bind click events to each of the dropdown items
-    $("#myDropdown2 .dropdown2D-content a").click(function () {
-      let selectedYear = $("#myDropdown1 .dropbtn2D").text();
-      let selectedMonth = $(this).text();
-      // Send the data to the Flask server
-      $.ajax({
-        url: "/submit",
-        data: {
-          year: selectedYear,
-          month: selectedMonth,
-        },
-        type: "POST",
-        success: function (response) {
-          // If the request was successful, display a message or do something else
-          alert(response.message);
-          console.log(response);
-        },
-        error: function (error) {
-          console.log(error);
-        },
-      });
-    });
-  });
 </script>
 
 <style>
