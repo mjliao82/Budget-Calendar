@@ -39,15 +39,18 @@ def handle_events():
         return jsonify(events)
 
 @app.route('/submit', methods=['POST'])
-def submit_data():
-    year = request.form['year']
-    month = request.form['month']
-    print('Year:', year, 'Month:', month)
-    with open('data.csv', 'a', newline='') as f:
-        writer = csv.writer(f)
+def submit():
+    data = request.get_json()
+    year = data.get('year')
+    month = data.get('month')
+    pull = list(year, month)
+    
+    '''' proves that it works
+    with open('data.csv', mode='a') as file:
+        writer = csv.writer(file)
         writer.writerow([year, month])
-    return jsonify({'message': 'Success'}), 200
-
+    '''
+    return jsonify({"message": "Data saved successfully"}), 200
 
 
 if __name__=="__main__":

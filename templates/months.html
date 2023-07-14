@@ -87,9 +87,13 @@
   }
 </style>
 <div class="dropdown">
-  <button onclick="drop()" class="dropbtn">Year</button>
+  <button class="dropbtn">Year</button>
   <div id="myDropdown1" class="dropdown-content">
-    <button onclick="Drop2D()" class="dropbtn2D">2023</button>
+    <button class="dropbtn2D">2023</button>
+    <button class="dropbtn2D">2024</button>
+    <button class="dropbtn2D">2025</button>
+    <button class="dropbtn2D">2026</button>
+    <button class="dropbtn2D">2027</button>
     <div id="myDropdown2" class="dropdown2D-content">
       <a>Jan</a>
       <a>Feb</a>
@@ -106,16 +110,63 @@
     </div>
   </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  let selectedYear = "";
+  let selectedMonth = "";
+
+  $(document).ready(function () {
+    $(".dropbtn2D").click(function (event) {
+      event.stopPropagation();
+      selectedYear = $(this).text();
+      $("#myDropdown2").addClass("show");
+    });
+
+    $("#myDropdown2 a").click(function (event) {
+      event.stopPropagation();
+      selectedMonth = $(this).text();
+
+      if (selectedYear !== "" && selectedMonth !== "") {
+        let data = {
+          year: selectedYear,
+          month: selectedMonth,
+        };
+
+        $.ajax({
+          url: "/submit",
+          type: "POST",
+          contentType: "application/json",
+          data: JSON.stringify(data),
+          success: function (response) {
+            alert(response.message);
+            console.log(response);
+          },
+          error: function (error) {
+            console.log(error);
+          },
+        });
+      } else {
+        alert("Please select both year and month.");
+      }
+    });
+
+    $(".dropbtn").click(function (event) {
+      event.stopPropagation();
+      $("#myDropdown1").addClass("show");
+    });
+
+    // Clicks outside of dropdowns will hide them
+    $(document).click(function () {
+      $("#myDropdown1").removeClass("show");
+      $("#myDropdown2").removeClass("show");
+    });
+  });
+</script>
+
 <script>
   /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
-  function drop() {
-    document.getElementById("myDropdown1").classList.toggle("show");
-  }
-  function Drop2D() {
-    document.getElementById("myDropdown2").classList.toggle("show");
-  }
-
   // Close the dropdown menu if the user clicks outside of it
   window.onclick = function (event) {
     if (!event.target.matches(".dropbtn2D")) {
@@ -135,33 +186,6 @@ toggle between hiding and showing the dropdown content */
       }
     }
   };
-</script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  $(document).ready(function () {
-    // Bind click events to each of the dropdown items
-    $("#myDropdown2 .dropdown2D-content a").click(function () {
-      let selectedYear = $("#myDropdown1 .dropbtn2D").text();
-      let selectedMonth = $(this).text();
-      // Send the data to the Flask server
-      $.ajax({
-        url: "/submit",
-        data: {
-          year: selectedYear,
-          month: selectedMonth,
-        },
-        type: "POST",
-        success: function (response) {
-          // If the request was successful, display a message or do something else
-          alert(response.message);
-          console.log(response);
-        },
-        error: function (error) {
-          console.log(error);
-        },
-      });
-    });
-  });
 </script>
 
 <style>
