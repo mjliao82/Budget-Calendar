@@ -2,13 +2,11 @@ from flask import Flask, render_template, request, jsonify
 import csv
 import os
 from datetime import datetime
-from flask_cors import CORS, cross_origin
 
 #this is the backend framework. I (Mike) will work on this
 #purpose of the file is to connect processed data with frontend
 
 app = Flask(__name__)
-CORS(app)
 
 @app.route("/")
 def index():
