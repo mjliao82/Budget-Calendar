@@ -147,8 +147,16 @@
             $("#myModal").modal("show"); // show the modal
           },
           eventClick: function (info) {
-            var formattedTitle = info.event.title.replace(/, /g, "\n");
-            alert(formattedTitle);
+            var formattedTitle = info.event.title;
+            var split = formattedTitle.split(",");
+            var shrink = [];
+            var i = 0;
+            while (i < 4) {
+              shrink.push(split[i]);
+              i++;
+            }
+            var update = shrink.join("\n");
+            alert(update);
           },
           events: function (fetchInfo, successCallback, failureCallback) {
             $.get("/events", function (events) {
