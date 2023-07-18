@@ -155,26 +155,10 @@
             </button>
           </div>
           <div class="modal-body">
-            <form id="infoForm">
-              <div class="form-gorup">
-                <label for="test">test</label>
-              </div>
-            </form>
-            <form id="infoForm2">
-              <div class="form-gorup">
-                <label for="test">test</label>
-              </div>
-            </form>
-            <form id="infoForm3">
-              <div class="form-gorup">
-                <label for="test">test</label>
-              </div>
-            </form>
-            <form id="infoForm4">
-              <div class="form-gorup">
-                <label for="test">test</label>
-              </div>
-            </form>
+            <form id="infoForm"></form>
+            <form id="infoForm2"></form>
+            <form id="infoForm3"></form>
+            <form id="infoForm4"></form>
             <div class="right">
               <button type="button" class="btn btn-danger" id="deleteButton">
                 Delete
@@ -208,7 +192,7 @@
             $("#infoForm3").text(split[2]);
             $("#infoForm4").text(split[3]);
             // save the event id to the delete button
-            $("#deleteButton").data("event-id", info.event.id);
+            $("#deleteButton").data("event-id", split[4]);
 
             // show the event detail modal
             $("#eventModal-2").modal("show");
@@ -221,6 +205,18 @@
         });
 
         calendar.render();
+
+        $("#deleteButton").click(function () {
+          var eventId = $(this).data("event-id");
+          $.ajax({
+            url: "/events/" + eventId.trim(),
+            type: "DELETE",
+            success: function () {
+              $("#eventModal").modal("hide");
+              calendar.refetchEvents(); // refetch events after successful deletion
+            },
+          });
+        });
 
         $("#budgetForm").on("submit", function (e) {
           e.preventDefault();

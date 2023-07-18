@@ -52,6 +52,16 @@ def submit():
     '''
     return jsonify({"message": "Data saved successfully"}), 200
 
+
+@app.route('/events/<int:event_id>', methods=['GET', 'POST', 'DELETE'])
+def handle_event(event_id):
+    try:
+        processor.row_delete('events.csv', event_id)  # Assuming event_id is equal to the row number
+        return jsonify({'message': 'Event deleted successfully'}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
+
+
 @app.route('/months')
 def month_analytics():
     return render_template("monthEmbed.html")
