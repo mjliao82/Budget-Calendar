@@ -26,12 +26,20 @@ def IDs(event):
 #print(IDs("Income: 9; Spendings: ; Category: Groceries; Description: ,2023-07-17"))
 
 
-def row_delete(filename, row_num):
+def row_delete(filename, id):
     with open(filename, 'r') as f:
         reader = csv.reader(f)
         lines = list(reader)
-        del lines[row_num]
+        index = 0
+        for line in lines:
+            if index == 0:
+                index+=1
+            else:
+                sub = str(line[0])
+                if sub[-1]==str(id):
+                    #print(sub[-1])
+                    lines.remove(line)
     with open(filename, 'w', newline = '') as file:
         writer = csv.writer(file)
-        writer.writerow(lines)
-
+        for line in lines:
+            writer.writerow(line)

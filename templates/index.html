@@ -212,7 +212,7 @@
             url: "/events/" + eventId.trim(),
             type: "DELETE",
             success: function () {
-              $("#eventModal").modal("hide");
+              $("#eventModal-2").modal("hide");
               calendar.refetchEvents(); // refetch events after successful deletion
             },
           });
