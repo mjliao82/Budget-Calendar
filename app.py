@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify
 import csv
 import os
 from datetime import datetime
+import processor
 
 #this is the backend framework. I (Mike) will work on this
 #purpose of the file is to connect processed data with frontend
@@ -19,8 +20,9 @@ def first():
 @app.route('/events', methods=['GET', 'POST'])
 def handle_events():
     if request.method == 'POST':
-        # Add a new event
         new_event = request.get_json()
+        processor.IDs(new_event)
+        # Add a new event
         with open('events.csv', 'a') as f:
             writer = csv.DictWriter(f, fieldnames=['title', 'start'])
             writer.writerow(new_event)
