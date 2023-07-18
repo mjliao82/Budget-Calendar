@@ -13,6 +13,12 @@
     <title>Budget Calendar</title>
   </head>
   <style>
+    .right {
+      display: flex;
+      justify-content: right;
+      position: relative;
+    }
+
     .middle {
       display: flex;
       justify-content: center;
@@ -132,6 +138,53 @@
         </div>
       </div>
     </div>
+    <!-- popup section -->
+    <div class="modal" tabindex="-1" role="dialog" id="eventModal-2">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 id="eventTitle-2">Info</h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+              id="Closebutt"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="infoForm">
+              <div class="form-gorup">
+                <label for="test">test</label>
+              </div>
+            </form>
+            <form id="infoForm2">
+              <div class="form-gorup">
+                <label for="test">test</label>
+              </div>
+            </form>
+            <form id="infoForm3">
+              <div class="form-gorup">
+                <label for="test">test</label>
+              </div>
+            </form>
+            <form id="infoForm4">
+              <div class="form-gorup">
+                <label for="test">test</label>
+              </div>
+            </form>
+            <div class="right">
+              <button type="button" class="btn btn-danger" id="deleteButton">
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script>
       var selectedDate;
       var calendarEl;
@@ -149,14 +202,16 @@
           eventClick: function (info) {
             var formattedTitle = info.event.title;
             var split = formattedTitle.split(";");
-            var shrink = [];
             var i = 0;
-            while (i < 4) {
-              shrink.push(split[i]);
-              i++;
-            }
-            var update = shrink.join("\n");
-            alert(update);
+            $("#infoForm").text(split[0]);
+            $("#infoForm2").text(split[1]);
+            $("#infoForm3").text(split[2]);
+            $("#infoForm4").text(split[3]);
+            // save the event id to the delete button
+            $("#deleteButton").data("event-id", info.event.id);
+
+            // show the event detail modal
+            $("#eventModal-2").modal("show");
           },
           events: function (fetchInfo, successCallback, failureCallback) {
             $.get("/events", function (events) {
