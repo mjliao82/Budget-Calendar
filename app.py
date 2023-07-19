@@ -17,21 +17,29 @@ def index():
 def first():
     return render_template("months.html")
 
+@app.route('/change_file', methods=['POST'])
+def change_file():
+    new_filename = request.get_json().get('filename')
+    with open('current_file.txt', 'w') as f:
+        f.write(new_filename)
+    return jsonify({'message': 'File changed successfully'}), 200
+
 @app.route('/events', methods=['GET', 'POST'])
 def handle_events():
+    filename = processor.get_current_filename()
     if request.method == 'POST':
         new_event = request.get_json()
         processor.IDs(new_event)
         # Add a new event
-        with open('events.csv', 'a') as f:
+        with open(filename, 'a') as f:
             writer = csv.DictWriter(f, fieldnames=['title', 'start'])
             writer.writerow(new_event)
         return jsonify(new_event)
 
     elif request.method == 'GET':
         # Return all events
-        if os.path.exists('events.csv'):
-            with open('events.csv', 'r') as f:
+        if os.path.exists(filename):
+            with open(filename, 'r') as f:
                 reader = csv.DictReader(f)
                 events = [ {'title': row['title'], 'start': datetime.fromisoformat(row['start']).isoformat()} for row in reader]
         else:

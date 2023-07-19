@@ -92,6 +92,7 @@
     </button>
     <div id="myDropdown1" class="dropdown-content">
       <a onclick="first()">Monthly Analysis</a>
+      <a>Main</a>
     </div>
   </div>
   <div class="middle">
@@ -258,8 +259,10 @@
         });
       });
       $(document).ready(function () {
+        //localStorage.removeItem("dropdownState");
+
         // Get the saved dropdown state from local storage
-        //#########var dropdownState = localStorage.getItem("dropdownState");
+        var dropdownState = localStorage.getItem("dropdownState");
 
         // If there is a saved state, use it to populate the dropdown
         if (dropdownState) {
@@ -272,7 +275,21 @@
             //if value is not empty
             // create a new button with the input value as text
             var newButton = $("<a>").text(inputValue);
-            newButton.on("click", function () {});
+            newButton.on("click", function () {
+              var newFilename = $(this).text();
+              $.ajax({
+                url: "/change_file",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ filename: newFilename }),
+                success: function (response) {
+                  console.log(response.message);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                  //console.log(jqXHR.responseJSON.message); // Error message from server
+                },
+              });
+            });
 
             // add the new button to the dropdown
             $("#myDropdown1").append(newButton);

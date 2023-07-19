@@ -40,8 +40,25 @@ def row_delete(filename, id):
         for line in lines:
             writer.writerow(line)
 
-#row_delete("events.csv", 40000)
-#Income: 500; Spendings: 30; Category: Groceries; Description: ; 4,2023-07-18
+
+def get_current_filename():
+    with open('current_file.txt', 'r') as f:
+        filename = f.read().strip()
+        filename=filename.replace(" ", "_")
+        filename = filename+str(".csv")
+        if filename == ".csv":
+            return 'events.csv'
+        if not os.path.exists(filename):
+            with open(filename, "w") as r:
+                writer = csv.writer(r)
+                writer.writerow(['title', 'start'])
+    return filename
+
+print(get_current_filename())
+
+
+
+
 #cleans up unfilled boxes
 def janitor(filename):
     return #Lucas 
