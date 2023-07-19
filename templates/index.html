@@ -87,10 +87,11 @@
     <button id="submitButton">Submit</button>
   </div>
   <div class="dropdown">
-    <button onclick="drop()" class="dropbtn">Settings</button>
+    <button onclick="drop()" class="dropbtn" id="dropdownButton">
+      Settings
+    </button>
     <div id="myDropdown1" class="dropdown-content">
       <a onclick="first()">Monthly Analysis</a>
-      <a onclick="multi_biz()">Multi Business Mode</a>
     </div>
   </div>
   <div class="middle">
@@ -175,7 +176,6 @@
       var selectedDate;
       var calendarEl;
       var calendar;
-
       document.addEventListener("DOMContentLoaded", function () {
         calendarEl = document.getElementById("calendar");
 
@@ -257,6 +257,31 @@
           }
         });
       });
+      $(document).ready(function () {
+        // Get the saved dropdown state from local storage
+        //#########var dropdownState = localStorage.getItem("dropdownState");
+
+        // If there is a saved state, use it to populate the dropdown
+        if (dropdownState) {
+          $("#myDropdown1").html(dropdownState);
+        }
+
+        $("#submitButton").on("click", function () {
+          var inputValue = $("#inputBox").val(); //get the value from the text box
+          if (inputValue) {
+            //if value is not empty
+            // create a new button with the input value as text
+            var newButton = $("<a>").text(inputValue);
+            newButton.on("click", function () {});
+
+            // add the new button to the dropdown
+            $("#myDropdown1").append(newButton);
+
+            // Save the current state of the dropdown in local storage
+            localStorage.setItem("dropdownState", $("#myDropdown1").html());
+          }
+        });
+      });
     </script>
     <script>
       function drop() {
@@ -264,9 +289,6 @@
       }
       function first() {
         window.location.href = "/first";
-      }
-      function multi_biz() {
-        document.getElementById("filename").classList.toggle("show");
       }
       // Close the dropdown menu if the user clicks outside of it
       window.onclick = function (event) {
