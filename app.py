@@ -38,7 +38,7 @@ def handle_events():
             events = []
         return jsonify(events)
 
-@app.route('/submit', methods=['POST'])
+@app.route('/submit', methods=['POST']) #on submitting year and month on /first
 def submit():
     data = request.get_json()
     year = data.get('year')
