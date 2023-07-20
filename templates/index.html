@@ -92,7 +92,7 @@
     </button>
     <div id="myDropdown1" class="dropdown-content">
       <a onclick="first()">Monthly Analysis</a>
-      <a>Main</a>
+      <a onclick="main_page()">Main</a>
     </div>
   </div>
   <div class="middle">
@@ -275,21 +275,6 @@
             //if value is not empty
             // create a new button with the input value as text
             var newButton = $("<a>").text(inputValue);
-            newButton.on("click", function () {
-              var newFilename = $(this).text();
-              $.ajax({
-                url: "/change_file",
-                method: "POST",
-                contentType: "application/json",
-                data: JSON.stringify({ filename: newFilename }),
-                success: function (response) {
-                  console.log(response.message);
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                  //console.log(jqXHR.responseJSON.message); // Error message from server
-                },
-              });
-            });
 
             // add the new button to the dropdown
             $("#myDropdown1").append(newButton);
@@ -298,7 +283,38 @@
             localStorage.setItem("dropdownState", $("#myDropdown1").html());
           }
         });
+        //Ajax callllllllllllllllllllll
+        $("#myDropdown1").on("click", "a", function () {
+          var newFilename = $(this).text();
+          $.ajax({
+            url: "/change_file",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ filename: newFilename }),
+            success: function (response) {
+              console.log(response.message);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+              //console.log(jqXHR.responseJSON.message); // Error message from server
+            },
+          });
+        });
       });
+
+      function main_page() {
+        $.ajax({
+          url: "/change_file",
+          method: "POST",
+          contentType: "application/json",
+          data: JSON.stringify({ filename: "main" }),
+          success: function (response) {
+            console.log(response.message);
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            //console.log(jqXHR.responseJSON.message); // Error message from server
+          },
+        });
+      }
     </script>
     <script>
       function drop() {
