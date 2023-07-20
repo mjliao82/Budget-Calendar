@@ -46,7 +46,7 @@ def get_current_filename():
         filename = f.read().strip()
         filename=filename.replace(" ", "_")
         filename = filename+str(".csv")
-        if filename == "main.csv":
+        if filename == "Main_Calendar.csv":
             return 'events.csv'
         if not os.path.exists(filename):
             with open(filename, "w") as r:

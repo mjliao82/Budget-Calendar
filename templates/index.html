@@ -92,11 +92,11 @@
     </button>
     <div id="myDropdown1" class="dropdown-content">
       <a onclick="first()">Monthly Analysis</a>
-      <a onclick="main_page()">Main</a>
+      <a onclick="main_page()">Main Calendar</a>
     </div>
   </div>
   <div class="middle">
-    <h2>Budget Calendar</h2>
+    <h2 id="headline">Main Calendar</h2>
   </div>
   <body>
     <div class="modal" tabindex="-1" role="dialog" id="myModal">
@@ -164,6 +164,7 @@
             <form id="infoForm2"></form>
             <form id="infoForm3"></form>
             <form id="infoForm4"></form>
+            <form id="infoForm5"></form>
             <div class="right">
               <button type="button" class="btn btn-danger" id="deleteButton">
                 Delete
@@ -194,6 +195,7 @@
             $("#infoForm2").text(split[1]);
             $("#infoForm3").text(split[2]);
             $("#infoForm4").text(split[3]);
+            //$("#infoForm5").text(split[4]);
             // save the event id to the delete button
             $("#deleteButton").data("event-id", split[4]);
 
@@ -286,6 +288,8 @@
         //Ajax callllllllllllllllllllll
         $("#myDropdown1").on("click", "a", function () {
           var newFilename = $(this).text();
+          var headline = document.getElementById("headline");
+          headline.textContent = newFilename;
           $.ajax({
             url: "/change_file",
             method: "POST",
@@ -293,6 +297,22 @@
             data: JSON.stringify({ filename: newFilename }),
             success: function (response) {
               console.log(response.message);
+              //$("#headline")=newFilename
+              $.ajax({
+                url: "/change_file",
+                method: "GET",
+                contentType: "application/json",
+                data: JSON.stringify({ filename: newFilename }),
+                success: function (response) {
+                  console.log(response.message);
+                  calendar.refetchEvents();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                  //console.log(jqXHR.responseJSON.message); // Error message from server
+                },
+              });
+
+              //updatePage();
             },
             error: function (jqXHR, textStatus, errorThrown) {
               //console.log(jqXHR.responseJSON.message); // Error message from server
@@ -306,9 +326,22 @@
           url: "/change_file",
           method: "POST",
           contentType: "application/json",
-          data: JSON.stringify({ filename: "main" }),
+          data: JSON.stringify({ filename: "Main" }),
           success: function (response) {
             console.log(response.message);
+            $.ajax({
+              url: "/change_file",
+              method: "GET",
+              contentType: "application/json",
+              data: JSON.stringify({ filename: "Main" }),
+              success: function (response) {
+                console.log(response.message);
+                calendar.refetchEvents();
+              },
+              error: function (jqXHR, textStatus, errorThrown) {
+                //console.log(jqXHR.responseJSON.message); // Error message from server
+              },
+            });
           },
           error: function (jqXHR, textStatus, errorThrown) {
             //console.log(jqXHR.responseJSON.message); // Error message from server

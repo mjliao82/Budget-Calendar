@@ -17,12 +17,25 @@ def index():
 def first():
     return render_template("months.html")
 
-@app.route('/change_file', methods=['POST'])
+@app.route('/change_file', methods=['Get', 'POST'])
 def change_file():
-    new_filename = request.get_json().get('filename')
-    with open('current_file.txt', 'w') as f:
-        f.write(new_filename)
-    return jsonify({'message': 'File changed successfully'}), 200
+    if request.method=='POST':
+        new_filename = request.get_json().get('filename')
+        with open('current_file.txt', 'w') as f:
+            f.write(new_filename)
+        return jsonify({'message': 'File changed successfully'}), 200
+    elif request.method=='GET':
+        filename = processor.get_current_filename()
+        if os.path.exists(filename):
+            with open(filename, 'r') as f:
+                reader = csv.DictReader(f)
+                events = [ {'title': row['title'], 'start': datetime.fromisoformat(row['start']).isoformat()} for row in reader]
+        else:
+            events = []
+        return jsonify(events)
+    #POST THIS SHIT RIGHT HERE
+
+
 
 @app.route('/events', methods=['GET', 'POST'])
 def handle_events():
@@ -63,8 +76,10 @@ def submit():
 
 @app.route('/events/<int:event_id>', methods=['GET', 'POST', 'DELETE'])
 def handle_event(event_id):
+    #BUGGGGGGGGGGGGGGGGGGGGGGG
+    filename = processor.get_current_filename()
     try:
-        processor.row_delete('events.csv', event_id)  # Assuming event_id is equal to the row number
+        processor.row_delete(filename, event_id)  # Assuming event_id is equal to the row number
         return jsonify({'message': 'Event deleted successfully'}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 400
