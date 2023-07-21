@@ -2,38 +2,18 @@ This is Mike, and here are the set up instructions for the envionment.
 
 Everything backend will be in Python 3.9.13, u can download it in vscode or the offical website. 
 
-Ryan and I had trouble coding in different versions and it caused a lot of unnecessary trouble
-To ensure the version consistency, we'll be using a virtual environment called virtualenv 
+The project is programmed in a virutal env, every import that needs to be install are installed within.
+I made a requirements.txt that has everything this project needs so far, including the virutal env.
 
-It sounds ode but I promise it will save us from a lot of dumb stuff
-It is also not that ode at all
+You must activate the virtual env to run app.py to have any effects, I believe if u run it in vscode with everything install will be fine.
 
-To open terminal in vscode if you're using it, press: control  ` 
+If u want to run it by just typing the path to the project, you have to activate it.
+The activation script is .venv/bin/activate after making to the project directory in the path.
 
-open terminal and type: pip install virtualenv 
+The run_app.py is the automation script to run the website but it does not include the activation part.
 
+I (Mike) included that part in the automation sh file for my own computer.
 
-I included a requirement.txt file, go into it and click install
-
-it will create a vitural env I created for this project.
-
-on the left in the file expolorer will have a .venv
-
-right click and open integrated terminal and it is activated in the desigated terminal
-
-We need to activate it because that's where all of the built in packages will be installed in
-Note that whatever we install, say pandas or flask/react whatever, it will only be in the virtual environment, not in your local machine.
-
-We'll experiment with flask as the backend tool for now, so install flask is a must.
-In budenv in terminal, type: pip install flask flask-sqlalchemy. 
-If it is already importing with no problem, no need for that.
-
-If it is activated, you should see (budenv) on the path on your command line.
-
-take a break, that was ode amount of info. 
-
-For future imports, if the packages is not installed, it will bug out, just pip it in command line.
-In the terminal, type: pip install PackageName  #just make sure it's in virtualenv 
 
 
 To commit to github after u clone the repo:
