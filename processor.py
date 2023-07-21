@@ -21,7 +21,6 @@ def IDs(event):
     event['title'] = add
     return event
 
-
 def row_delete(filename, id):
     with open(filename, 'r') as f:
         reader = csv.reader(f)
@@ -40,7 +39,6 @@ def row_delete(filename, id):
         for line in lines:
             writer.writerow(line)
 
-
 def get_current_filename():
     with open('current_file.txt', 'r') as f:
         filename = f.read().strip()
@@ -54,10 +52,60 @@ def get_current_filename():
                 writer.writerow(['title', 'start'])
     return filename
 
-print(get_current_filename())
-
-
-
+def file_size(file):
+    with open(file, 'r') as f:
+        num_lines = sum(1 for line in f)
+        return num_lines
+def cumalative():
+    with open("data.csv", "w") as reset:
+        writer = csv.writer(reset)
+        writer.writerow(['title', 'start'])
+    reset.close()
+    filename = get_current_filename()
+    income = 0
+    spending = 0
+    count = 0
+    length = file_size(filename)
+    with open(filename, "r") as f:
+        reader = csv.reader(f)
+        next(reader) 
+        count += 1
+        temp=""
+        first_iter = True
+        for i in reader:
+            deli = i[0].split(";")
+            if i[1]!=temp: #i[1] is the date
+                if first_iter==False:   
+                    with open("data.csv", "a") as mid:
+                        writer = csv.writer(mid)
+                        writer.writerow(["Income: "+str(income), temp]) 
+                        writer.writerow(["Spending: "+str(spending), temp])
+                    mid.close()
+                first_iter=False
+                temp = i[1]
+                income = 0
+                spending = 0
+            if i[1]==temp:
+                in_obj=slice(7, len(deli[0]))
+                temp_in_str = deli[0][in_obj]
+                spe_obj=slice(12, len(deli[1]))
+                temp_spe_str = deli[1][spe_obj]
+                if temp_in_str == "":
+                    temp_in_str = "0"
+                if temp_spe_str == "":
+                    temp_spe_str = "0"
+                temp_income = int(temp_in_str)
+                temp_spending = int(temp_spe_str)
+                income += temp_income
+                spending += temp_spending
+            count+=1
+            if count == length: #last date case
+                with open("data.csv", "a") as last:
+                    writer = csv.writer(last)
+                    writer.writerow(["Income: "+str(income), i[1]])
+                    writer.writerow(["Spending: "+str(spending), i[1]])
+    return 
+#cumalative()
 
 #cleans up unfilled boxes
 def janitor(filename):
