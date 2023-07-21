@@ -90,8 +90,10 @@ def cumalative():
                 temp_in_str = deli[0][in_obj]
                 spe_obj=slice(12, len(deli[1]))
                 temp_spe_str = deli[1][spe_obj]
+                temp_in_str = temp_in_str.strip()
                 if temp_in_str == "":
                     temp_in_str = "0"
+                temp_spe_str = temp_spe_str.strip()
                 if temp_spe_str == "":
                     temp_spe_str = "0"
                 temp_income = int(temp_in_str)

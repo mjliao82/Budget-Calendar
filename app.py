@@ -57,6 +57,7 @@ def handle_events():
         with open(filename, 'a') as f:
             writer = csv.DictWriter(f, fieldnames=['title', 'start'])
             writer.writerow(new_event)
+        #call sorting algorithm
         return jsonify(new_event)
 
     elif request.method == 'GET':
