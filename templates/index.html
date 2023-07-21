@@ -91,7 +91,7 @@
       Settings
     </button>
     <button onclick="first()" class="dropbtn">Monthly Analysis</button>
-    <button class="dropbtn">Cumalative</button>
+    <button id="cumButton" class="dropbtn">Cumalative</button>
     <div id="myDropdown1" class="dropdown-content">
       <a onclick="main_page()">Main Calendar</a>
     </div>
@@ -328,14 +328,14 @@
           url: "/change_file",
           method: "POST",
           contentType: "application/json",
-          data: JSON.stringify({ filename: "Main" }),
+          data: JSON.stringify({ filename: "Main Calendar" }),
           success: function (response) {
             console.log(response.message);
             $.ajax({
               url: "/change_file",
               method: "GET",
               contentType: "application/json",
-              data: JSON.stringify({ filename: "Main" }),
+              data: JSON.stringify({ filename: "Main Calendar" }),
               success: function (response) {
                 console.log(response.message);
                 calendar.refetchEvents();
@@ -350,6 +350,31 @@
           },
         });
       }
+
+      $(document).ready(function () {
+        var calendarEl = document.getElementById("calendar");
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: "dayGridMonth",
+        });
+
+        calendar.render();
+
+        $("#cumButton").click(function () {
+          $.ajax({
+            url: "/accumulate",
+            method: "GET",
+            contentType: "application/json",
+            success: function (response) {
+              calendar.removeAllEvents();
+              calendar.addEventSource(response); // add the fetched events
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+              // handle error
+            },
+          });
+        });
+      });
     </script>
     <script>
       function drop() {

@@ -17,7 +17,17 @@ def index():
 def first():
     return render_template("months.html")
 
-@app.route('/change_file', methods=['Get', 'POST'])
+@app.route('/accumulate', methods=['GET'])
+def acc():
+    processor.cumalative()
+    with open('data.csv', 'r') as f:
+        reader = csv.DictReader(f)
+        events = [ {'title': row['title'], 'start': datetime.fromisoformat(row['start']).isoformat()} for row in reader]
+    return jsonify(events)
+
+
+
+@app.route('/change_file', methods=['GET', 'POST'])
 def change_file():
     if request.method=='POST':
         new_filename = request.get_json().get('filename')
