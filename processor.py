@@ -125,6 +125,7 @@ def file_sort():
                 # for i in line:
                     temp = []   
                     if line[1] not in temp:
+                        line
     return
 
 
