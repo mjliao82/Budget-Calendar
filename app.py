@@ -3,6 +3,7 @@ import csv
 import os
 from datetime import datetime
 import processor
+import month_po
 
 #this is the backend framework. I (Mike) will work on this
 #purpose of the file is to connect processed data with frontend
@@ -57,8 +58,6 @@ def handle_events():
         with open(filename, 'a') as f:
             writer = csv.DictWriter(f, fieldnames=['title', 'start'])
             writer.writerow(new_event)
-        #call sorting algorithm
-        
         return jsonify(new_event)
 
     elif request.method == 'GET':
@@ -99,6 +98,7 @@ def handle_event(event_id):
 
 @app.route('/months')
 def month_analytics():
+    month_po.update()
     return render_template("monthEmbed.html")
 
 if __name__=="__main__":

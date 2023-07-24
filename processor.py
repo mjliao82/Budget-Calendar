@@ -107,6 +107,7 @@ def cumalative():
                     writer = csv.writer(last)
                     writer.writerow(["Income: "+str(income), i[1]])
                     writer.writerow(["Spending: "+str(spending), i[1]])
+                last.close()
     return 
 #cumalative()
 
@@ -139,8 +140,10 @@ def file_sort():
                     if line[1]==ref[i]:
                         writer.writerow(line)
                 i+=1
-        f.close
+        f.close()
+    return
 #file_sort()
+
 #cleans up unfilled boxes
 def janitor(filename):
     return #Lucas 
