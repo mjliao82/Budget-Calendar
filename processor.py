@@ -110,15 +110,34 @@ def cumalative():
 #cumalative()
 
 def file_sort():
-    dic = {}
+    # dic = {}
     filename = get_current_filename()
     with open(filename, "r")as f:
         reader = csv.reader(f)
-        next(reader)
-        for i in reader:
-            dic[i[0]]=i[1]
-    print(dic)
+        lines = list(reader)
+        # next(lines)
+        line_num = 0
+        for line in lines:
+            if line_num == 0:
+                line_num += 1
+                continue #skips header line
+            else:
+                # for i in line:
+                    temp = []   
+                    if line[1] not in temp:
     return
+
+
+            
+            
+    #     for i in reader:
+    #         dic[i[0]]=i[1]
+    # print(dic)
+
+file_sort()
+
+
+
 #file_sort()
 #cleans up unfilled boxes
 def janitor(filename):
