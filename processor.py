@@ -109,6 +109,19 @@ def cumalative():
     return 
 #cumalative()
 
+def file_sort():
+    dic = {}
+    filename = get_current_filename()
+    with open(filename, "r")as f:
+        reader = csv.reader(f)
+        next(reader)
+        for i in reader:
+            dic[i[0]]=i[1]
+    print(dic)
+    return
+#file_sort()
 #cleans up unfilled boxes
 def janitor(filename):
     return #Lucas 
+
+
