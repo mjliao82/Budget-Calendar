@@ -58,6 +58,7 @@ def handle_events():
             writer = csv.DictWriter(f, fieldnames=['title', 'start'])
             writer.writerow(new_event)
         #call sorting algorithm
+        
         return jsonify(new_event)
 
     elif request.method == 'GET':
@@ -87,7 +88,7 @@ def submit():
 
 @app.route('/events/<int:event_id>', methods=['GET', 'POST', 'DELETE'])
 def handle_event(event_id):
-    #BUGGGGGGGGGGGGGGGGGGGGGGG
+    
     filename = processor.get_current_filename()
     try:
         processor.row_delete(filename, event_id)  # Assuming event_id is equal to the row number
