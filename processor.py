@@ -57,6 +57,7 @@ def file_size(file):
         num_lines = sum(1 for line in f)
         return num_lines
 def cumalative():
+    file_sort()
     with open("data.csv", "w") as reset:
         writer = csv.writer(reset)
         writer.writerow(['title', 'start'])
@@ -115,7 +116,6 @@ def file_sort():
         reader = csv.reader(f)
         next(reader)
         lines = list(reader)
-        temp = [] 
         saver = {}  #reduce runtime for get or else method
         ref = []
         cur = ""
@@ -130,7 +130,7 @@ def file_sort():
         with open(filename, "w")as header:
             writer = csv.writer(header)
             writer.writerow(['title', 'start'])
-            header.close()
+        header.close()
         with open(filename, "a") as f:
             writer = csv.writer(f)
             i = 0 
@@ -139,11 +139,7 @@ def file_sort():
                     if line[1]==ref[i]:
                         writer.writerow(line)
                 i+=1
-            f.close
-file_sort()
-
-
-
+        f.close
 #file_sort()
 #cleans up unfilled boxes
 def janitor(filename):
