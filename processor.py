@@ -110,31 +110,36 @@ def cumalative():
 #cumalative()
 
 def file_sort():
-    # dic = {}
     filename = get_current_filename()
     with open(filename, "r")as f:
         reader = csv.reader(f)
+        next(reader)
         lines = list(reader)
-        # next(lines)
-        line_num = 0
+        temp = [] 
+        saver = {}  #reduce runtime for get or else method
+        ref = []
+        cur = ""
         for line in lines:
-            if line_num == 0:
-                line_num += 1
-                continue #skips header line
+            cur = line[1]
+            if saver.get(cur, -5)==-5:
+                saver[cur]=1
             else:
-                # for i in line:
-                    temp = []   
-                    if line[1] not in temp:
-                        line
-    return
-
-
-            
-            
-    #     for i in reader:
-    #         dic[i[0]]=i[1]
-    # print(dic)
-
+                saver[cur]+=1
+            if saver[cur]==1:
+                ref.append(line[1])
+        with open(filename, "w")as header:
+            writer = csv.writer(header)
+            writer.writerow(['title', 'start'])
+            header.close()
+        with open(filename, "a") as f:
+            writer = csv.writer(f)
+            i = 0 
+            while i < len(ref):
+                for line in lines:
+                    if line[1]==ref[i]:
+                        writer.writerow(line)
+                i+=1
+            f.close
 file_sort()
 
 

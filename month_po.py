@@ -34,6 +34,5 @@ def count_cate():
                     dic[category]=1
                 else:
                     dic[category]+=1
-                    #dic[category]+=1
     return dic 
 print(count_cate())
