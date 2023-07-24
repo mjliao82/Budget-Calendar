@@ -116,9 +116,11 @@ def file_sort():
         reader = csv.reader(f)
         next(reader)
         for i in reader:
-            dic[i[0]]=i[1]
-    print(dic)
+            dic[i[0]]=i[1] #where is the line
+            print(i)
+    #print(dic)
     return
+#file_sort()
 #file_sort()
 #cleans up unfilled boxes
 def janitor(filename):
