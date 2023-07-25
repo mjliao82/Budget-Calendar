@@ -4,12 +4,6 @@
     justify-content: center;
     position: relative;
   }
-  .pie {
-    display: flex;
-    justify-content: center;
-    position: relative;
-    height: min-content;
-  }
   .hide {
     display: none;
   }
@@ -18,27 +12,30 @@
 <div class="middle">
   <h4 id="headline">Overall Analysis</h4>
 </div>
-<div id="default" class="pie"></div>
+<div class="middle" style="height: 40%">
+  <canvas id="pie"></canvas>
+</div>
+
 <div id="idk" class="hide">{{ data_package |safe }}</div>
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
 
 <script>
   var rawData = document.getElementById("idk").innerText;
   var dataPackage = JSON.parse(rawData);
   var D_labels = dataPackage[0];
   var D_values = dataPackage[1];
-  var data = [
-    {
-      values: D_values,
+  var ctx = document.getElementById("pie").getContext("2d");
+  var myChart = new Chart(ctx, {
+    type: "pie",
+    data: {
       labels: D_labels,
-      type: "pie",
+      datasets: [
+        {
+          data: D_values,
+          borderWidth: 1,
+        },
+      ],
     },
-  ];
-
-  var layout = {
-    height: 400,
-    width: 500,
-  };
-
-  Plotly.newPlot("default", data, layout);
+  });
 </script>
