@@ -4,6 +4,12 @@
     justify-content: center;
     position: relative;
   }
+  .pie {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    height: min-content;
+  }
   .hide {
     display: none;
   }
@@ -12,7 +18,7 @@
 <div class="middle">
   <h4 id="headline">Overall Analysis</h4>
 </div>
-<div id="default" class="middle"></div>
+<div id="default" class="pie"></div>
 <div id="idk" class="hide">{{ data_package |safe }}</div>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 

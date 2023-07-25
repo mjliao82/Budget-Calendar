@@ -6,10 +6,8 @@ monthly accumulation
 potentially a line chart on any "year" clicked for growth over the months
 '''
 import processor
-import os
 import csv
-import plotly.io as pio
-import plotly.graph_objects as go
+
 
 #default layout of the imbedded page
 def get_lines():
@@ -61,7 +59,22 @@ def values():
         result.append(i)
     return result 
 
-def update():
-    fig = go.Figure(data=[go.Pie(labels=labels(), values=values(), textinfo='label+percent',insidetextorientation='radial')])
-    pio.write_html(fig, 'templates/monthEmbed.html')
-    return 
+'''
+        in_obj = slice(7, len(comma[0]))
+        income = comma[0][in_obj]
+        income = income.strip()
+        if income == "":
+            income = "0"
+        spe_obj = slice(12, len(comma[1]))
+        spending = comma[1][spe_obj]
+        spending = spending.strip()
+        if spending =="":
+            spending ="0"
+        income = int(income)
+        spending = int(spending)
+        dominant = 0
+        if income > spending:
+            dominant += income 
+        else:
+            dominant += spending
+'''
