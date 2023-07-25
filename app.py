@@ -4,7 +4,7 @@ import os
 from datetime import datetime
 import processor
 import month_po
-
+import json
 #this is the backend framework. I (Mike) will work on this
 #purpose of the file is to connect processed data with frontend
 
@@ -96,10 +96,15 @@ def handle_event(event_id):
         return jsonify({'error': str(e)}), 400
 
 
-@app.route('/months')
+@app.route('/months', methods=["GET"])
 def month_analytics():
-    month_po.update()
-    return render_template("monthEmbed.html")
+    data_package = []
+    data_package.append(month_po.labels())
+    data_package.append(month_po.values())
+    #month_po.update()
+    package_json = json.dumps(data_package)
+    return render_template("monthEmbed.html", data_package=package_json)
+    #return render_template("monthEmbed.html")
 
 if __name__=="__main__":
     app.run(debug=True)
