@@ -1,10 +1,3 @@
-'''
-number of lines in the calenar 
-calculate percentage of what each possibnle categories are
-we can make a pie chart outa it
-monthly accumulation 
-potentially a line chart on any "year" clicked for growth over the months
-'''
 import processor
 import csv
 
@@ -59,22 +52,48 @@ def values():
         result.append(i)
     return result 
 
-'''
-        in_obj = slice(7, len(comma[0]))
-        income = comma[0][in_obj]
-        income = income.strip()
-        if income == "":
-            income = "0"
-        spe_obj = slice(12, len(comma[1]))
-        spending = comma[1][spe_obj]
-        spending = spending.strip()
-        if spending =="":
-            spending ="0"
-        income = int(income)
-        spending = int(spending)
-        dominant = 0
-        if income > spending:
-            dominant += income 
-        else:
-            dominant += spending
-'''
+def default_income():   #returns income in list
+    filename = processor.get_current_filename()
+    result = []
+    with open(filename, "r")as f:
+        reader = csv.reader(f)
+        next(reader)
+        for i in reader:
+            deli = i[0].split(";")
+            in_obj = slice(7, len(deli[0]))
+            income = deli[0][in_obj]
+            income = income.strip()
+            if income == "":
+                income = "0"
+            income = int(income)
+            result.append(income)
+    return result
+#print(default_income())
+
+def default_spending():
+    filename = processor.get_current_filename()
+    result = []
+    with open(filename, "r")as f:
+        reader = csv.reader(f)
+        next(reader)
+        for i in reader:
+            deli = i[0].split(";")
+            spe_obj = slice(12, len(deli[1]))
+            spending = deli[1][spe_obj]
+            spending = spending.strip()
+            if spending == "":
+                spending = "0"
+            spending = int(spending)
+            result.append(spending)
+    return result
+
+def default_label():
+    filename = processor.get_current_filename()
+    result = []
+    with open(filename, "r")as f:
+        reader = csv.reader(f)
+        next(reader)
+        for i in reader:
+            result.append(i[1])
+    return result
+print(default_label())

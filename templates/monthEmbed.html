@@ -10,12 +10,14 @@
 </style>
 
 <div class="middle">
-  <h4 id="headline">Overall Analysis</h4>
+  <a id="headline">Overall</a>
 </div>
 <div class="middle" style="height: 40%">
   <canvas id="pie"></canvas>
 </div>
-
+<div class="middle" style="height: 50%">
+  <canvas id="barski"></canvas>
+</div>
 <div id="idk" class="hide">{{ data_package |safe }}</div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
@@ -25,8 +27,16 @@
   var dataPackage = JSON.parse(rawData);
   var D_labels = dataPackage[0];
   var D_values = dataPackage[1];
-  var ctx = document.getElementById("pie").getContext("2d");
-  var myChart = new Chart(ctx, {
+  var D_income = dataPackage[2];
+  var D_spending = dataPackage[3];
+  var D_line_labe = dataPackage[4];
+
+  let maxIncome = Math.max(...D_income);
+  let maxSpend = Math.max(...D_spending);
+  let maxNum = Math.max(maxIncome, maxSpend);
+
+  var pie = document.getElementById("pie").getContext("2d");
+  var myPie = new Chart(pie, {
     type: "pie",
     data: {
       labels: D_labels,
@@ -36,6 +46,57 @@
           borderWidth: 1,
         },
       ],
+    },
+    plugins: {
+      legend: {
+        display: true,
+        position: "left",
+      },
+    },
+  });
+  var bar = document.getElementById("barski").getContext("2d");
+  new Chart(bar, {
+    type: "line",
+    data: {
+      labels: D_line_labe,
+      datasets: [
+        {
+          label: "Spending",
+          data: D_spending,
+          backgroundColor: "rgba(255, 99, 132, 0.2)",
+          borderColor: "rgba(255, 99, 132, 1)",
+          borderWidth: 1,
+        },
+        {
+          label: "Income",
+          data: D_income,
+          backgroundColor: "rgba(54, 162, 235, 0.2)",
+          borderColor: "rgba(54, 162, 235, 1)",
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+        x: {
+          display: false,
+          stacked: true,
+        },
+        y: {
+          min: 0,
+          max: maxNum + 10,
+          stacked: true,
+        },
+      },
+      plugins: {
+        legend: {
+          display: true,
+          position: "bottom",
+        },
+      },
     },
   });
 </script>

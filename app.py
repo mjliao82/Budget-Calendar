@@ -95,18 +95,25 @@ def handle_event(event_id):
     except Exception as e:
         return jsonify({'error': str(e)}), 400
 
-
 @app.route('/months', methods=["GET"])
 def month_analytics():
-    #[income] [spending] [title]
-    #[[x-axis],[x-axis],[title]]
-    data_package = []
-    data_package.append(month_po.labels())
-    data_package.append(month_po.values())
-    #month_po.update()
-    package_json = json.dumps(data_package)
-    return render_template("monthEmbed.html", data_package=package_json)
-    #return render_template("monthEmbed.html")
+    with open('date.csv', 'r') as f:
+        reader = csv.reader(f)
+        data = list(reader)
+        if len(data)==0:
+            data_package = []
+            data_package.append(month_po.labels())
+            data_package.append(month_po.values())
+            data_package.append(month_po.default_income())
+            data_package.append(month_po.default_spending())
+            data_package.append(month_po.default_label())
+            package_json = json.dumps(data_package)
+            return render_template("monthEmbed.html", data_package=package_json)
+        else:
+            with open("date.csv", "w") as file:
+                None
+            file.close
+            return render_template("selected.html")
 
 if __name__=="__main__":
     app.run(debug=True)
