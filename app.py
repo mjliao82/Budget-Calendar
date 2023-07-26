@@ -77,11 +77,11 @@ def submit():
     month = data.get('month')
     pull = [year, month]
 
-    '''#proves that it works
-    with open('data.csv', mode='a') as file:
+    #proves that it works
+    with open('date.csv', mode='w') as file:
         writer = csv.writer(file)
         writer.writerow([year, month])
-    '''
+    
     return jsonify({"message": "Data saved successfully"}), 200
 
 
@@ -98,6 +98,8 @@ def handle_event(event_id):
 
 @app.route('/months', methods=["GET"])
 def month_analytics():
+    #[income] [spending] [title]
+    #[[x-axis],[x-axis],[title]]
     data_package = []
     data_package.append(month_po.labels())
     data_package.append(month_po.values())
