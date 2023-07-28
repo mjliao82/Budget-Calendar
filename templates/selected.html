@@ -1,1 +1,28 @@
-<h1>Coming soon</h1>
+<style>
+  .middle {
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+  .hide {
+    display: none;
+  }
+</style>
+
+<div class="middle">
+  <a id="headline">package[index]</a>
+</div>
+
+<div class="middle" style="height: 40%">
+  <canvas id="pie"></canvas>
+</div>
+
+<div class="middle" style="height: 50%">
+  <canvas id="barski"></canvas>
+</div>
+<div id="idk" class="hide">{{ data_package |safe }}</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  var rawData = document.getElementById("idk").innerText;
+</script>
