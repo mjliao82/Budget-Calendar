@@ -20,36 +20,49 @@ num_to_month = {
 
 
 def title():
-    with open("date.csv", "r") as f:
+    filename = processor.get_current_filename()
+    
+    with open(filename, "r") as f:
         reader = csv.reader(f)
         for firstLine in reader:
             year = firstLine[0]
             month = firstLine[1]
             header = [month + ' ' + year]
-            with open("date.csv", "w") as file:
-                None
-            file.close
+            # with open("date.csv", "w") as file:
+            #     None
+            # file.close    
+            
             return header
-        
-['2023,Mar']
+    
+
+    
+# print(title())
+
 def month_data():
-    time = title()[0]
-    print(time)
-    split = time.split(' ')
-    print(split[0])
-    '''
-    filename = processor.get_current_filename()
-    with open(filename, "r") as f:
+    # filename = processor.get_current_filename()
+    inputDate = title()[0]
+    # print(date)
+    split = inputDate.split(' ')
+    # print(split[0])
+    inputMonth = split[0]
+    inputYear = split[1]
+    
+    with open("events.csv", "r") as f:
         reader = csv.reader(f)
         next(reader)
-        for line in reader:
-            date = line[1].split('-')
-            year = date[0]
-            month = date[1]
-            with open('temp.csv', "a") as fp:
-                writer = csv.writer(fp)
+        with open('temp.csv', "a", newline='\n') as fp:
+            writer = csv.writer(fp)
+            for line in reader:
+                date = line[1].split('-')
+                year = date[0]
+                month = num_to_month.get(date[1])
                 if inputYear == year and inputMonth == month:
+                    print(line)
+                    # print('yooo')
                     writer.writerow(line)
-    '''
+        fp.close
+    f.close
+    
     return
+
 month_data()
