@@ -18,24 +18,32 @@ num_to_month = {
     '12':'December'
 }
 
-# def title():
-#     filename = processor.get_current_filename()
-#     with open(filename, "r") as f:
-#         reader = csv.reader(f)
-#         next(reader)
-#         for line in reader:
-#             date = line[1].split('-')
-#             year = date[0]
-#             month = date[1]
-#         header = [year + ' ' + num_to_month.get(month)]
-            
-#         # with open("temp.csv", "w") as fp:
-#         #     writer = csv.writer(fp)
-            
-#         # print(header)
-#     return header
 
-# title()
+def title():
+    # filename = processor.get_current_filename()
+    
+    with open("date.csv", "r") as f:
+        reader = csv.reader(f)
+        for firstLine in reader:
+            year = firstLine[0]
+            month = firstLine[1]
+            print(year)
+            # line = 
+            # print(line)
+            header = [month + ' ' + year]
+            with open("date.csv", "w") as file:
+                None
+            file.close    
+            
+            return header
+    
+
+    
+            
+    
+print(title())
+
+
 
 def month_data(inputYear, inputMonth):
     # filename = processor.get_current_filename()

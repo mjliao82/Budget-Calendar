@@ -5,6 +5,7 @@ from datetime import datetime
 import processor
 import month_po
 import json
+import monthly_analysis
 #this is the backend framework. I (Mike) will work on this
 #purpose of the file is to connect processed data with frontend
 
@@ -110,9 +111,10 @@ def month_analytics():
             package_json = json.dumps(data_package)
             return render_template("monthEmbed.html", data_package=package_json)
         else:
-            with open("date.csv", "w") as file:
-                None
-            file.close
+            # with open("date.csv", "w") as file:
+            #     None
+            # file.close
+            monthly_analysis.title()
             return render_template("selected.html")
 
 if __name__=="__main__":
