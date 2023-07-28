@@ -4,50 +4,42 @@ import processor
 
 
 num_to_month = {
-    '01':'January',
-    '02':'February',
-    '03':'March',
-    '04':'April',
+    '01':'Jan',
+    '02':'Feb',
+    '03':'Mar',
+    '04':'Apr',
     '05':'May',
-    '06':'June',
-    '07':'July',
-    '08':'August',
-    '09':'September',
-    '10':'October',
-    '11':'November',
-    '12':'December'
+    '06':'Jun',
+    '07':'Jul',
+    '08':'Aug',
+    '09':'Sep',
+    '10':'Oct',
+    '11':'Nov',
+    '12':'Dec'
 }
 
 
 def title():
-    # filename = processor.get_current_filename()
-    
     with open("date.csv", "r") as f:
         reader = csv.reader(f)
         for firstLine in reader:
             year = firstLine[0]
             month = firstLine[1]
-            print(year)
-            # line = 
-            # print(line)
             header = [month + ' ' + year]
             with open("date.csv", "w") as file:
                 None
-            file.close    
-            
+            file.close
             return header
-    
-
-    
-            
-    
-print(title())
-
-
-
-def month_data(inputYear, inputMonth):
-    # filename = processor.get_current_filename()
-    with open("events.csv", "r") as f:
+        
+['2023,Mar']
+def month_data():
+    time = title()[0]
+    print(time)
+    split = time.split(' ')
+    print(split[0])
+    '''
+    filename = processor.get_current_filename()
+    with open(filename, "r") as f:
         reader = csv.reader(f)
         next(reader)
         for line in reader:
@@ -58,6 +50,6 @@ def month_data(inputYear, inputMonth):
                 writer = csv.writer(fp)
                 if inputYear == year and inputMonth == month:
                     writer.writerow(line)
+    '''
     return
-
-month_data("2023", "07")
+month_data()

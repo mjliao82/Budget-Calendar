@@ -76,9 +76,6 @@ def submit():
     data = request.get_json()
     year = data.get('year')
     month = data.get('month')
-    pull = [year, month]
-
-    #proves that it works
     with open('date.csv', mode='w') as file:
         writer = csv.writer(file)
         writer.writerow([year, month])
@@ -111,9 +108,6 @@ def month_analytics():
             package_json = json.dumps(data_package)
             return render_template("monthEmbed.html", data_package=package_json)
         else:
-            # with open("date.csv", "w") as file:
-            #     None
-            # file.close
             monthly_analysis.title()
             return render_template("selected.html")
 
