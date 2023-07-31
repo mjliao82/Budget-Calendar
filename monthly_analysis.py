@@ -51,7 +51,7 @@ def month_data():
     with open(filename, "r") as f:
         reader = csv.reader(f)
         next(reader)
-        with open('temp.csv', "a", newline='\n') as fp:
+        with open('temp.csv', "w", newline='\n') as fp:
             writer = csv.writer(fp)
             for line in reader:
                 date = line[1].split('-')
@@ -68,7 +68,7 @@ def month_data():
     
     return
     
-month_data()
+#month_data()
 
 def lines():
     num = 0
