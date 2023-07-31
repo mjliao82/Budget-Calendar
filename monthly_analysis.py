@@ -67,4 +67,88 @@ def month_data():
     
     return
     
-month_data()
+# month_data()
+
+def lines():
+    num = 0
+    with open("temp.csv", "r") as f:
+        reader = csv.reader(f)
+        for i in reader:
+            num += 1 
+    return num 
+# print(lines())
+
+def count_categories():
+    dic={}
+    with open("temp.csv", 'r') as f:
+        reader = csv.reader(f)
+        for i in reader:
+            comma = i[0].split(';')
+            if len(comma[2]) != 11:
+                category = slice(11, len(comma[2]))
+                category = comma[2][category]
+                if dic.get(category)==None:
+                    dic[category]=1
+                else:
+                    dic[category]+=1
+            else:
+                if dic.get("undefined")==None:
+                    dic["undefined"]=1
+                else:
+                    dic["undefined"]+=1
+    f.close()
+    return dic 
+# print(count_categories())
+
+def labels():
+    dic = count_categories()
+    result = []
+    for i in dic.keys():
+        result.append(i)
+    return result
+
+def values():
+    dic = count_categories()
+    result = []
+    for i in dic.values():
+        result.append(i)
+    return result
+
+def income():
+    result = []
+    with open("temp.csv", 'r') as f:
+        reader = csv.reader(f)
+        for i in reader:
+            line = i[0].split(";")
+            in_obj = slice(7, len(line[0]))
+            income = line[0][in_obj]
+            income = income.strip()
+            if income == "":
+                income = "0"
+            income = int(income)
+            result.append(income)
+    return result
+# print(income())
+
+def spending():
+    result = []
+    with open("temp.csv", "r") as f:
+        reader = csv.reader(f)
+        for i in reader:
+            line = i[0].split(";")
+            spe_obj = slice(12, len(line[1]))
+            spending = line[1][spe_obj]
+            spending = spending.strip()
+            if spending == "":
+                spending = "0"
+            spending = int(spending)
+            result.append(spending)
+    return result
+
+def default_label():
+    result = []
+    with open("temp.csv", "r") as f:
+        reader = csv.reader(f)
+        for i in reader: 
+            result.append(i[1])
+    return result

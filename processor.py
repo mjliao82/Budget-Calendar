@@ -143,7 +143,7 @@ def file_sort():
                 i+=1
         f.close()
     return
-file_sort()
+# file_sort()
 
 #cleans up unfilled boxes
 def janitor(filename):
