@@ -20,33 +20,33 @@ num_to_month = {
 
 
 def title():
-    filename = processor.get_current_filename()
-    
-    with open(filename, "r") as f:
+    # Read data from date.csv
+    with open('date.csv', "r") as f:
         reader = csv.reader(f)
         for firstLine in reader:
             year = firstLine[0]
             month = firstLine[1]
             header = [month + ' ' + year]
-            # with open("date.csv", "w") as file:
-            #     None
-            # file.close    
+    with open('last_date.csv', "w", newline='') as lf:
+        writer = csv.writer(lf)
+        writer.writerow(header)
+    open('date.csv', 'w').close()
             
-            return header
-    
 
-    
-# print(title())
 
 def month_data():
     # filename = processor.get_current_filename()
-    inputDate = title()[0]
-    # print(date)
-    split = inputDate.split(' ')
-    # print(split[0])
-    inputMonth = split[0]
-    inputYear = split[1]
-    
+    inputDate = []
+    with open("last_date.csv", "r")as f:
+        reader = csv.reader(f)
+        for i in reader:
+            inputDate = i
+    inputMonth = ""
+    inputYear = ""
+    for i in inputDate:
+        split = i.split(' ')
+        inputMonth = split[0]
+        inputYear = split[1]
     with open("events.csv", "r") as f:
         reader = csv.reader(f)
         next(reader)
@@ -64,5 +64,5 @@ def month_data():
     f.close
     
     return
-
+    
 month_data()

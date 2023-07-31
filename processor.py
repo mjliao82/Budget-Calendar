@@ -122,6 +122,7 @@ def file_sort():
         cur = ""
         for line in lines:
             cur = line[1]
+            #print(cur)
             if saver.get(cur, -5)==-5:
                 saver[cur]=1
             else:
@@ -142,7 +143,7 @@ def file_sort():
                 i+=1
         f.close()
     return
-#file_sort()
+file_sort()
 
 #cleans up unfilled boxes
 def janitor(filename):

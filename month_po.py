@@ -96,4 +96,4 @@ def default_label():
         for i in reader:
             result.append(i[1])
     return result
-print(default_label())
+#print(default_label())
