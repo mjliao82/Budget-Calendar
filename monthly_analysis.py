@@ -65,7 +65,6 @@ def month_data():
                     open('temp.csv', 'w').close()
         fp.close
     f.close
-    
     return
     
 #month_data()
