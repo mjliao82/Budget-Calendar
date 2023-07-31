@@ -35,7 +35,8 @@ def title():
 
 
 def month_data():
-    # filename = processor.get_current_filename()
+    filename = processor.get_current_filename()
+    #print(filename)
     inputDate = []
     with open("last_date.csv", "r")as f:
         reader = csv.reader(f)
@@ -47,7 +48,7 @@ def month_data():
         split = i.split(' ')
         inputMonth = split[0]
         inputYear = split[1]
-    with open("events.csv", "r") as f:
+    with open(filename, "r") as f:
         reader = csv.reader(f)
         next(reader)
         with open('temp.csv', "a", newline='\n') as fp:
@@ -67,7 +68,7 @@ def month_data():
     
     return
     
-# month_data()
+month_data()
 
 def lines():
     num = 0

@@ -29,14 +29,18 @@
   var headline = document.getElementById("headline");
   headline.textContent = dataPackage[0];
 
+  let maxIncome = Math.max(...dataPackage[3]);
+  let maxSpend = Math.max(...dataPackage[4]);
+  let maxNum = Math.max(maxIncome, maxSpend);
+
   var pie = document.getElementById("pie").getContext("2d");
   var myPie = new Chart(pie, {
     type: "pie",
     data: {
-      labels: tobeDetermined, ////////////////////////
+      labels: dataPackage[1], ////////////////////////
       datasets: [
         {
-          data: tobeDetermined,
+          data: dataPackage[2],
           borderWidth: 1,
         },
       ],
@@ -52,18 +56,18 @@
   new Chart(bar, {
     type: "line",
     data: {
-      labels: tobeDetermined,
+      labels: dataPackage[5],
       datasets: [
         {
           label: "Spending",
-          data: tobeDetermined,
+          data: dataPackage[3],
           backgroundColor: "rgba(255, 99, 132, 0.2)",
           borderColor: "rgba(255, 99, 132, 1)",
           borderWidth: 1,
         },
         {
           label: "Income",
-          data: tobeDetermined,
+          data: dataPackage[4],
           backgroundColor: "rgba(54, 162, 235, 0.2)",
           borderColor: "rgba(54, 162, 235, 1)",
           borderWidth: 1,
