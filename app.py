@@ -108,8 +108,15 @@ def month_analytics():
             package_json = json.dumps(data_package)
             return render_template("monthEmbed.html", data_package=package_json)
         else:
+            data_package = [] #header first index
             monthly_analysis.title()
-            return render_template("selected.html")
+            with open("last_date.csv", "r")as f:
+                reader = csv.reader(f)
+                for i in reader:
+                    data_package.append(i)
+            package_json = json.dumps(data_package)
+            
+            return render_template("selected.html", data_package=package_json)
 
 if __name__=="__main__":
     app.run(debug=True)

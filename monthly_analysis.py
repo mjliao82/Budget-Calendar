@@ -47,7 +47,6 @@ def month_data():
         split = i.split(' ')
         inputMonth = split[0]
         inputYear = split[1]
-    
     with open("events.csv", "r") as f:
         reader = csv.reader(f)
         next(reader)
